@@ -45,6 +45,7 @@
         <h1>Illini Innovations</h1>
     </header>
 
+
     <div id="map"></div>
 
     <script>
@@ -52,15 +53,16 @@
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution: '&copy; <a href="https://www.juandavidcampolargo.com/" target="_blank" rel="noopener noreferrer">Juan David Campolagro</a>'
+            
         }).addTo(map);
 
-            var heatLayer = L.heatLayer([[40.1020, -88.2272, 0.5],
+            var heatLayer = L.heatLayer([[40.1020, -88.2272, 0.9],
             [40.1034188, -88.242912, 0.2],
-            [40.112118896978686, -88.22630676458144, 0.1],
+            [40.112118896978686, -88.22630676458144, 0.9],
             [40.1149256, -88.2274353, 0.8],
             [40.1020, -88.2272, 0.3]
-            ], { radius: 40 }).addTo(map);
+            ], { radius: 80 }).addTo(map);
 
 
 
@@ -79,6 +81,28 @@
         var Mosaicmarker = L.marker([40.1020, -88.2272]).addTo(map);
         Mosaicmarker.bindPopup("<b>Mosaic</b><br>1234 Innovation Drive").openPopup();
 
+        
+
+        // Circles for places where people hang out
+        // ISR, ACM Office, Krannert, Beckman, EnterpriseWorks, SCD, ECEOpenLab, URAP, EOH, etc
+        var circle = L.circle([40.1020, -88.2272], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 100
+        }).addTo(map);
+
+        var circle = L.circle([40.1034188, -88.242912], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 100
+        }).addTo(map);
+
+
+       
+
+
 
 
         // Show coordinates on click
@@ -94,6 +118,7 @@
         map.on('click', onMapClick);
 
 
+ 
 
     </script>
 </body>
