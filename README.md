@@ -16,5 +16,4 @@ Functionality:
     * [ ] Add more information to each pin
 * [ ] Add Orange PINS
 * [ ] Implement heat map
-* [ ] Add created by at the bottom
 
