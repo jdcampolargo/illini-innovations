@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIUC Map</title>
+
+    <style>
+        header {
+            padding: 1em;
+            background-color: #252525;
+            color: white;
+            text-align: center;
+        }
+        #map {
+            height: calc(100vh - 4em);
+            width: 100%;
+        }
+    </style>
+
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+</head>
+
+<body>
+    <header>
+        <h1>Illini Innovations</h1>
+    </header>
+
+    <div id="map"></div>
+
+    <script>
+        var map = L.map('map').setView([40.1050, -88.2272], 15);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        var marker = L.marker([40.1020, -88.2272]).addTo(map);
+        marker.bindPopup("<b>Illini Innovations</b><br>1234 Innovation Drive").openPopup();
+
+        var DRESmarker = L.marker([40.1034188,-88.242912]).addTo(map);
+       DRESmarker.bindPopup("<b>DRES</b><br>1234 Innovation Drive").openPopup();
+
+        var PLATOmarker = L.marker([40.112118896978686, -88.22630676458144]).addTo(map);
+        PLATOmarker.bindPopup("<b>DRES</b><br>1234 Innovation Drive").openPopup();
+
+        var NCSAmarker = L.marker([40.1149256,-88.2274353]).addTo(map);
+        NCSAmarker.bindPopup("<b>NCSA</b><br>1234 Innovation Drive").openPopup();
+
+        var Mosaicmarker = L.marker([40.1020, -88.2272]).addTo(map);
+        Mosaicmarker.bindPopup("<b>Mosaic</b><br>1234 Innovation Drive").openPopup();
+
+
+
+        // Show coordinates on click
+        var popup = L.popup();
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+}
+
+map.on('click', onMapClick);
+
+        
+
+    </script>
+</body>
+
+</html>
