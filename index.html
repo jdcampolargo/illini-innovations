@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -121,6 +121,107 @@
  
 
     </script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html>
+
+<!-- Add a header with "Illini Innovations" header, highlight it -->
+
+
+<header>
+    <h1>Illini Innovations Map</h1>
+</header>
+
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Illini Inonovations</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4em;
+            background-color: #fff;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiamRjYW1wb2xhcmdvIiwiYSI6ImNreHMzZXh4cTRyOGcydW80aWcyc2ZrMXMifQ.SqgAQ26kdjR4jA4EcGnWCQ';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            center: [-88.228333, 40.110558], // starting position [lng, lat]
+            zoom: 15 // starting zoom
+        });
+
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+
+        // Add geolocate control to the map.
+        map.addControl(
+            new mapboxgl.GeolocateControl({
+                positionOptions: {
+                    enableHighAccuracy: true
+                },
+                trackUserLocation: true
+            })
+        );
+
+
+        // Add a marker to the map at the specified location
+        var marker = new mapboxgl.Marker()
+            .setLngLat([-88.228333, 40.110558])
+            .addTo(map);
+
+        // Add a popup to the marker
+        marker.setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML('<h3>Illini Innovations</h3><p>1234 Innovation Drive</p>'))
+            .togglePopup();
+
+        // Add a marker to the map at the specified location
+        var marker = new mapboxgl.Marker()
+            .setLngLat([-88.242912, 40.1034188])
+            .addTo(map);
+
+        // Add a popup to the marker
+        marker.setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML('<h3>DRES</h3><p>1234 Innovation Drive</p>'))
+            .togglePopup();
+
+
+    </script>
+
 </body>
 
 </html>
