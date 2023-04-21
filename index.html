@@ -205,6 +205,45 @@
         );
 
 
+        // feature to 
+
+    
+
+
+   
+       // animation to show the path of the user
+        // map.on('load', function () {
+        //     map.addSource('route', {
+        //         'type': 'geojson',
+        //         'data': {
+        //             'type': 'Feature',
+        //             'properties': {},
+        //             'geometry': {
+        //                 'type': 'LineString',
+        //                 'coordinates': [
+        //                     [-88.228333, 40.110558],
+        //                     [-88.242912, 40.1034188]
+        //                 ]
+        //             }
+        //         }
+        //     });
+        //     map.addLayer({
+        //         'id': 'route',
+        //         'type': 'line',
+        //         'source': 'route',
+        //         'layout': {
+        //             'line-join': 'round',
+        //             'line-cap': 'round'
+        //         },
+        //         'paint': {
+        //             'line-color': '#888',
+        //             'line-width': 8
+        //         }
+        //     });
+        // });
+            
+
+
         // Add a marker to the map at the specified location
         var marker = new mapboxgl.Marker()
             .setLngLat([-88.228333, 40.110558])
@@ -224,10 +263,10 @@
         marker.setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
             .setHTML('<h3>DRES</h3><p>1234 Innovation Drive</p>'))
             .togglePopup();
-
+            
+            
 
             map.on('style.load', () => {
-
 
                 // Insert the layer beneath any symbol layer.
                 const layers = map.getStyle().layers;
@@ -276,6 +315,32 @@
                     labelLayerId
                 );
             });
+
+
+// Fullscreen control
+            map.addControl(new mapboxgl.FullscreenControl());
+
+            // Attach a popup to a marker instance
+            var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+                'Illini Innovations'
+            );
+
+            // Create a HTML element for your custom marker
+            var el = document.createElement('div');
+            el.id = 'marker';
+
+            // Create the custom marker
+            var marker = new mapboxgl.Marker(el)
+                .setLngLat([-88.228333, 40.110558])
+                .setPopup(popup) // sets a popup on this marker
+                .addTo(map);
+
+            // Create a HTML element for your custom marker
+            var el = document.createElement('div');
+            el.id = 'marker';
+            
+
+            
 
 
 
