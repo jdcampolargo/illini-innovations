@@ -1,3 +1,4 @@
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiamRjYW1wb2xhcmdvIiwiYSI6ImNreHMzZXh4cTRyOGcydW80aWcyc2ZrMXMifQ.SqgAQ26kdjR4jA4EcGnWCQ';
 const map = new mapboxgl.Map({
     container: 'map', // container ID
@@ -24,72 +25,46 @@ map.addControl(
     })
 );
 
+// Define an array to hold all the markers
+const markers = [];
 
+// Define a Marker class to encapsulate the functionality for a single marker
+class Marker {
+  constructor(lngLat, popupContent) {
+    this.lngLat = lngLat;
+    this.popupContent = popupContent;
+    this.marker = new mapboxgl.Marker().setLngLat(lngLat);
+    this.popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent);
+    this.marker.setPopup(this.popup);
+    this.marker.getElement().addEventListener('click', () => {
+      this.popup.addTo(map);
+    });
+  }
 
-// Add a marker to the map at the specified location
-var marker = new mapboxgl.Marker()
-    .setLngLat([-88.228333, 40.110558])
-    .addTo(map);
+  // Method for adding the marker to the map
+  addToMap(map) {
+    this.marker.addTo(map);
+  }
 
-// Add a popup to the marker
-marker.setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-    .setHTML('<h3>Illini Innovations</h3><p>1234 Innovation Drive</p>'))
-    .togglePopup();
-
-// Add a marker to the map at the specified location
-var marker = new mapboxgl.Marker()
-    .setLngLat([-88.22708440781152, 40.10924072528232])
-    .addTo(map);
-
-// Define the content for the popup
-var popupContent = '<div class="place-card">' +
-    '<h3>Illini Innovations</h3>' +
-    '<p>Description of the place goes here.</p>' +
-    '<p><a href="https://example.com">Learn more</a></p>' +
-    '<ul>' +
-    '<li>Similar place 1</li>' +
-    '<li>Similar place 2</li>' +
-    '<li>Similar place 3</li>' +
-    '</ul>' +
-    '<button onclick="showStreetView()">Street View</button>' +
-    '</div>';
-
-// Create the popup and set its content
-var popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent);
-
-// Add an event listener to the marker that opens the popup when clicked
-marker.getElement().addEventListener('click', function () {
-    popup.addTo(map);
-});
-
-// Attach the popup to the marker
-marker.setPopup(popup);
-
-// Show the popup when the marker is clicked
-marker.togglePopup();
-
-// Function to show the Street View
-function showStreetView() {
-    // Use the coordinates of the marker to construct the URL for the Street View API
-    var streetViewUrl = 'https://www.google.com/maps/@' + marker.getLngLat().lat + ',' + marker.getLngLat().lng + ',15z';
-    // Open the Street View URL in a new window
-    window.open(streetViewUrl, '_blank');
+  // Method for toggling the marker's popup
+  togglePopup() {
+    this.marker.togglePopup();
+  }
 }
 
+// Function for adding a new marker
+function addMarker(lngLat, popupContent) {
+  const marker = new Marker(lngLat, popupContent);
+  markers.push(marker);
+  marker.addToMap(map);
+}
 
-
-
-// Add a marker to the map at the specified location
-var marker = new mapboxgl.Marker()
-    .setLngLat([-88.242912, 40.1034188])
-    .addTo(map);
-
-// Add a popup to the marker
-marker.setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-    .setHTML('<h3>DRES</h3><p>1234 Innovation Drive</p>'))
-    .togglePopup();
-
-
+// Define the popup content for each marker
+const popupContent = {
+  'marker1': '<h3>Illini Innovations</h3><p>1234 Innovation Drive</p>',
+  'marker2': '<h3>Illini Innovations</h3><p>Description of the place goes here.</p><p><a href="https://example.com">Learn more</a></p><ul><li>Similar place 1</li><li>Similar place 2</li><li>Similar place 3</li></ul><button onclick="showStreetView()">Street View</button>',
+  'marker3': '<h3>DRES</h3><p>1234 Innovation Drive</p>'
+};
 
 map.on('style.load', () => {
 
@@ -99,9 +74,22 @@ map.on('style.load', () => {
         (layer) => layer.type === 'symbol' && layer.layout['text-field']
     ).id;
 
-    // The 'building' layer in the Mapbox Streets
-    // vector tileset contains building height data
-    // from OpenStreetMap.
+
+// Fullscreen control
+map.addControl(new mapboxgl.FullscreenControl());
+
+// Add the markers to the map
+addMarker([-88.228333, 40.110558], popupContent['marker1']);
+addMarker([-88.22708440781152, 40.10924072528232], popupContent['marker2']);
+addMarker([-88.242912, 40.1034188], popupContent['marker3']);
+
+
+
+
+
+
+
+    // 3D Feature
     map.addLayer(
         {
             'id': 'add-3d-buildings',
@@ -140,37 +128,3 @@ map.on('style.load', () => {
         labelLayerId
     );
 });
-
-
-// Fullscreen control
-map.addControl(new mapboxgl.FullscreenControl());
-
-// Attach a popup to a marker instance
-var popup = new mapboxgl.Popup({ offset: 25 }).setText(
-    'Illini Innovations'
-);
-
-// Create a HTML element for your custom marker
-var el = document.createElement('div');
-el.id = 'marker';
-
-// Create the custom marker
-var marker = new mapboxgl.Marker(el)
-    .setLngLat([-88.228333, 40.110558])
-    .setPopup(popup) // sets a popup on this marker
-    .addTo(map);
-
-// Create a HTML element for your custom marker
-var el = document.createElement('div');
-el.id = 'marker';
-
-
-// Show coordinates on click
-map.on('click', function (e) {
-    var coordinates = e.lngLat;
-    new mapboxgl.Popup()
-        .setLngLat(coordinates)
-        .setHTML(coordinates.lng + '<br />' + ', ' + coordinates.lat)
-        .addTo(map);
-});
-
