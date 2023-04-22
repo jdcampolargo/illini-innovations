@@ -40,6 +40,7 @@ class Marker {
       this.popup.addTo(map);
     });
   }
+  
 
   // Method for adding the marker to the map
   addToMap(map) {
