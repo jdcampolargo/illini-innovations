@@ -124,6 +124,7 @@ map.on('style.load', () => {
 
   // button to let me know the exact coordinates of a point double click copy to clipboard 
   // using this format (88.22986857280245,40.11039652664218)
+
   map.on('dblclick', function (e) {
     console.log(e.lngLat);
     e.lngLat.wrap();
@@ -132,7 +133,7 @@ map.on('style.load', () => {
     var lat = lngLat.lat;
     var lngLatString = "(" + lng + "," + lat + ")";
     console.log(lngLatString);
-    navigator.clipboard.writeText(lngLatString);
+    
   });
 
 
