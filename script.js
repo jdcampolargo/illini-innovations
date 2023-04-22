@@ -83,6 +83,9 @@ map.on('style.load', () => {
   addMarker([-88.22708440781152, 40.10924072528232], popupContent['marker2']);
   addMarker([-88.242912, 40.1034188], popupContent['marker3']);
 
+
+  
+
   // 3D Feature
   map.addLayer(
     {
@@ -122,19 +125,6 @@ map.on('style.load', () => {
     labelLayerId
   );
 
-  // button to let me know the exact coordinates of a point double click copy to clipboard 
-  // using this format (88.22986857280245,40.11039652664218)
-
-  map.on('dblclick', function (e) {
-    console.log(e.lngLat);
-    e.lngLat.wrap();
-    var lngLat = e.lngLat.wrap();
-    var lng = lngLat.lng;
-    var lat = lngLat.lat;
-    var lngLatString = "(" + lng + "," + lat + ")";
-    console.log(lngLatString);
-    
-  });
 
 
 });
