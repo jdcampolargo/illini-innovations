@@ -1,126 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Illini Innovations Map</title>
-
-    <style>
-        header {
-            padding: 1em;
-            background-color: #252525;
-            color: white;
-            text-align: center;
-        }
-
-        #map {
-            height: calc(100vh - 4em);
-            width: 100%;
-        }
-
-        /* mobile */
-        @media only screen and (max-width: 600px) {
-            #map {
-                height: calc(100vh - 2em);
-            }
-        }
-    </style>
-
-
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <meta charset="utf-8">
+    <title>Illini Innovations</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@1,200;1,400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 </head>
-
-
-<script src="leaflet-heat.js"></script>
 
 <body>
     <header>
-        <h1>Illini Innovations</h1>
+        <h1>Illini Innovations Map</h1>
     </header>
-
-
     <div id="map"></div>
-
-    <script>
-        var map = L.map('map').setView([40.1050, -88.2272], 15);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="https://www.juandavidcampolargo.com/" target="_blank" rel="noopener noreferrer">Juan David Campolagro</a>'
-            
-        }).addTo(map);
-
-            var heatLayer = L.heatLayer([[40.1020, -88.2272, 0.9],
-            [40.1034188, -88.242912, 0.2],
-            [40.112118896978686, -88.22630676458144, 0.9],
-            [40.1149256, -88.2274353, 0.8],
-            [40.1020, -88.2272, 0.3]
-            ], { radius: 80 }).addTo(map);
-
-
-
-        var marker = L.marker([40.1020, -88.2272]).addTo(map);
-        marker.bindPopup("<b>Illini Innovations</b><br>1234 Innovation Drive").openPopup();
-
-        var DRESmarker = L.marker([40.1034188, -88.242912]).addTo(map);
-        DRESmarker.bindPopup("<b>DRES</b><br>1234 Innovation Drive").openPopup();
-
-        var PLATOmarker = L.marker([40.112118896978686, -88.22630676458144]).addTo(map);
-        PLATOmarker.bindPopup("<b>DRES</b><br>1234 Innovation Drive").openPopup();
-
-        var NCSAmarker = L.marker([40.1149256, -88.2274353]).addTo(map);
-        NCSAmarker.bindPopup("<b>NCSA</b><br>1234 Innovation Drive").openPopup();
-
-        var Mosaicmarker = L.marker([40.1020, -88.2272]).addTo(map);
-        Mosaicmarker.bindPopup("<b>Mosaic</b><br>1234 Innovation Drive").openPopup();
-
-        
-
-        // Circles for places where people hang out
-        // ISR, ACM Office, Krannert, Beckman, EnterpriseWorks, SCD, ECEOpenLab, URAP, EOH, etc
-        var circle = L.circle([40.1020, -88.2272], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: 100
-        }).addTo(map);
-
-        var circle = L.circle([40.1034188, -88.242912], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: 100
-        }).addTo(map);
-
-
-       
-
-
-
-
-        // Show coordinates on click
-        var popup = L.popup();
-
-        function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent("You clicked the map at " + e.latlng.toString())
-                .openOn(map);
-        }
-
-        map.on('click', onMapClick);
-
-
- 
-
-    </script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
