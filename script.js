@@ -1,14 +1,14 @@
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiamRjYW1wb2xhcmdvIiwiYSI6ImNreHMzZXh4cTRyOGcydW80aWcyc2ZrMXMifQ.SqgAQ26kdjR4jA4EcGnWCQ';
 const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-    style: 'mapbox://styles/mapbox/streets-v12', // style URL
-    // style: 'mapbox://styles/mapbox/light-v11',
+  container: 'map', // container ID
+  // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+  style: 'mapbox://styles/mapbox/streets-v12', // style URL
+  // style: 'mapbox://styles/mapbox/light-v11',
 
-    center: [-88.228333, 40.110558], // starting position [lng, lat]
-    zoom: 15, // starting zoom
-    pitch: 45
+  center: [-88.228333, 40.110558], // starting position [lng, lat]
+  zoom: 15, // starting zoom
+  pitch: 45
 
 });
 
@@ -17,12 +17,12 @@ map.addControl(new mapboxgl.NavigationControl());
 
 // Add geolocate control to the map.
 map.addControl(
-    new mapboxgl.GeolocateControl({
-        positionOptions: {
-            enableHighAccuracy: true
-        },
-        trackUserLocation: true
-    })
+  new mapboxgl.GeolocateControl({
+    positionOptions: {
+      enableHighAccuracy: true
+    },
+    trackUserLocation: true
+  })
 );
 
 // Define an array to hold all the markers
@@ -68,57 +68,72 @@ const popupContent = {
 
 map.on('style.load', () => {
 
-    // Insert the layer beneath any symbol layer.
-    const layers = map.getStyle().layers;
-    const labelLayerId = layers.find(
-        (layer) => layer.type === 'symbol' && layer.layout['text-field']
-    ).id;
+  // Insert the layer beneath any symbol layer.
+  const layers = map.getStyle().layers;
+  const labelLayerId = layers.find(
+    (layer) => layer.type === 'symbol' && layer.layout['text-field']
+  ).id;
 
 
-// Fullscreen control
-map.addControl(new mapboxgl.FullscreenControl());
+  // Fullscreen control
+  map.addControl(new mapboxgl.FullscreenControl());
 
-// Add the markers to the map
-addMarker([-88.228333, 40.110558], popupContent['marker1']);
-addMarker([-88.22708440781152, 40.10924072528232], popupContent['marker2']);
-addMarker([-88.242912, 40.1034188], popupContent['marker3']);
+  // Add the markers to the map
+  addMarker([-88.228333, 40.110558], popupContent['marker1']);
+  addMarker([-88.22708440781152, 40.10924072528232], popupContent['marker2']);
+  addMarker([-88.242912, 40.1034188], popupContent['marker3']);
 
-    // 3D Feature
-    map.addLayer(
-        {
-            'id': 'add-3d-buildings',
-            'source': 'composite',
-            'source-layer': 'building',
-            'filter': ['==', 'extrude', 'true'],
-            'type': 'fill-extrusion',
-            'minzoom': 15,
-            'paint': {
-                'fill-extrusion-color': '#aaa',
+  // 3D Feature
+  map.addLayer(
+    {
+      'id': 'add-3d-buildings',
+      'source': 'composite',
+      'source-layer': 'building',
+      'filter': ['==', 'extrude', 'true'],
+      'type': 'fill-extrusion',
+      'minzoom': 15,
+      'paint': {
+        'fill-extrusion-color': '#aaa',
 
-                // Use an 'interpolate' expression to
-                // add a smooth transition effect to
-                // the buildings as the user zooms in.
-                'fill-extrusion-height': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    15,
-                    0,
-                    15.05,
-                    ['get', 'height']
-                ],
-                'fill-extrusion-base': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    15,
-                    0,
-                    15.05,
-                    ['get', 'min_height']
-                ],
-                'fill-extrusion-opacity': 0.6
-            }
-        },
-        labelLayerId
-    );
+        // Use an 'interpolate' expression to
+        // add a smooth transition effect to
+        // the buildings as the user zooms in.
+        'fill-extrusion-height': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          15,
+          0,
+          15.05,
+          ['get', 'height']
+        ],
+        'fill-extrusion-base': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          15,
+          0,
+          15.05,
+          ['get', 'min_height']
+        ],
+        'fill-extrusion-opacity': 0.6
+      }
+    },
+    labelLayerId
+  );
+
+  // button to let me know the exact coordinates of a point double click copy to clipboard 
+  // using this format (88.22986857280245,40.11039652664218)
+  map.on('dblclick', function (e) {
+    console.log(e.lngLat);
+    e.lngLat.wrap();
+    var lngLat = e.lngLat.wrap();
+    var lng = lngLat.lng;
+    var lat = lngLat.lat;
+    var lngLatString = "(" + lng + "," + lat + ")";
+    console.log(lngLatString);
+    navigator.clipboard.writeText(lngLatString);
+  });
+
+
 });
