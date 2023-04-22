@@ -82,6 +82,10 @@ map.on('style.load', () => {
   addMarker([-88.228333, 40.110558], popupContent['marker1']);
   addMarker([-88.22708440781152, 40.10924072528232], popupContent['marker2']);
   addMarker([-88.242912, 40.1034188], popupContent['marker3']);
+  addMarker([-88.22808440781152, 40.10924072528232], popupContent['marker2']);
+
+  
+
 
 
   
