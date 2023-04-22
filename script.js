@@ -88,7 +88,6 @@ addMarker([-88.242912, 40.1034188], popupContent['marker3']);
 
 
 
-
     // 3D Feature
     map.addLayer(
         {
