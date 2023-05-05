@@ -52,4 +52,10 @@ h1 {
     header {
         font-size: 1em;
     }
+    /* zoom in more */
+    
+}
+
+.mapboxgl-ctrl-logo {
+    display: none !important;
 }

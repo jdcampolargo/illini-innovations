@@ -5,11 +5,15 @@ const map = new mapboxgl.Map({
   // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
   style: 'mapbox://styles/mapbox/streets-v12', // style URL
   // style: 'mapbox://styles/mapbox/light-v11',
+  attributionControl: false,
+  // add created by me to the right bottom corner
 
   center: [-88.228340, 40.110558], // starting position [lng, lat]
   zoom: 15, // starting zoom
   pitch: 45
 });
+
+
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
