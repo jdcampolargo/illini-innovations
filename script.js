@@ -41,8 +41,9 @@ class Marker {
     this.marker.setPopup(this.popup);
     this.marker.getElement().addEventListener('click', () => {
       this.popup.addTo(map);
-    });
+        });
   }
+
 
 
 
@@ -56,6 +57,8 @@ class Marker {
     this.marker.togglePopup();
   }
 }
+
+
 
 // Function for adding a new marker
 function addMarker(lngLat, popupContent) {
@@ -98,12 +101,18 @@ const popupContent = {
     <p>1234 Innovation Drive</p>
   `,
   'PLATO': `
-    <h3>PLATO</h3>
-<div class="popup-expandable">z
-    <p>PLATO (Programmed Logic for Automated Teaching Operations) was an innovative computer-based education system developed at the University of Illinois at Urbana-Champaign in the 1960s. It allowed students to interact with course materials on a computer, providing them with immediate feedback and personalized instruction. The system was ahead of its time, and its influence can still be seen today in the widespread use of educational technology in classrooms around the world.</p>
+    <h2>PLATO</h2>
+    <p>PLATO (Programmed Logic for Automated Teaching Operations) was an innovative computer-based education system developed at the University of Illinois at Urbana-Champaign in the 1960s. It allowed students to interact with course materials on a computer, providing them with immediate feedback and personalized instruction. The system was ahead of its time, and its influence can still be seen today in the widespread use of educational technology in classrooms around the world.</p>    
+
     <p>If you're interested in learning more about the history of PLATO, you can check out the University of Illinois's online archive:</p>
     <p><a href="https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/">https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/</a></p>
-// </div>
+    `,
+
+    'BCL': `
+    <h2>Biological Computer Laboratory</h2>
+    <p>The Biological Computer Laboratory (BCL) was a research laboratory at the University of Illinois at Urbana-Champaign from 1958 to 1974. It was founded by Heinz von Foerster, a professor of electrical engineering, and funded by the Advanced Research Projects Agency (ARPA), a division of the U.S. Department of Defense. The BCL was a pioneer in the field of cybernetics, which is the study of how systems regulate themselves and communicate with each other. The lab's research focused on the intersection of biology and technology, and it produced many innovations in the fields of artificial intelligence, robotics, and computer science.</p>
+
+    <p> Learn <a href="BCL LINK" target="_blank">more</a>.
     `
 
 };
@@ -111,6 +120,16 @@ const popupContent = {
 
 
 
+
+map.on('mousemove', (e) => {
+  document.getElementById('info').innerHTML =
+  // `e.point` is the x, y coordinates of the `mousemove` event
+  // relative to the top-left corner of the map.
+  JSON.stringify(e.point) +
+  '<br />' +
+  // `e.lngLat` is the longitude, latitude geographical position of the event.
+  JSON.stringify(e.lngLat.wrap());
+  });
 
 
 map.on('style.load', () => {
@@ -134,8 +153,11 @@ map.on('style.load', () => {
   addMarker([-88.22609183428881, 40.11211559903380], popupContent['PLATO']);
   addMarker([-88.22609183428881, 40.11211559903237], popupContent['PLATO']);
   addMarker([-88.22609183428881, 40.13], popupContent['PLATO']);
-  
+  addMarker([-88.22817558660483, 40.11100133492316], popupContent['BCL']);
 
+
+
+ 
 
 
 
@@ -185,6 +207,4 @@ map.on('style.load', () => {
 
 });
 
-map.on('click', function(e) {
-  console.log(e.lngLat); // logs the clicked coordinates to the console
-});
+
