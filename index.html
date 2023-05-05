@@ -1,28 +1,87 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <title>Illini Innovations</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@1,200;1,400&display=swap"
-        rel="stylesheet">
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta charset="utf-8">
+<title>MAPMAP</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
 </head>
-
 <body>
-    <header>
-        <h1>Illini Innovations Map</h1>
-    </header>
-    <div id="map"></div>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-    <script src="script.js"></script>
+<style>
+    #marker {
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ed/Platovterm1981.jpg');
+        background-size: cover;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    /* #marker1 {
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/02/PLATO_chem_exp.jpg');
+        background-size: cover;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+    } */
+
+
+
+    .mapboxgl-popup {
+        max-width: 200px;
+    }
+</style>
+
+<div id="map"></div>
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiamRjYW1wb2xhcmdvIiwiYSI6ImNreHMzZXh4cTRyOGcydW80aWcyc2ZrMXMifQ.SqgAQ26kdjR4jA4EcGnWCQ';
+    const monument = [-77.0353, 38.8895];
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/mapbox/light-v11',
+        center: monument,
+        zoom: 15
+    });
+
+    // create the popup
+    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+        'Construction on the Washington Monument began in 1848.'
+    );
+
+    const popup1 = new mapboxgl.Popup({ offset: 25 }).setText(
+        'Construction on the Washington Monument began in 1848.'
+    );
+
+    // create DOM element for the marker
+    const el = document.createElement('div');
+    el.id = 'marker';
+
+    const el1 = document.createElement('div');
+    el1.id = 'marker1';
+    
+
+    // create the marker
+    new mapboxgl.Marker(el)
+        .setLngLat(monument)
+        .setPopup(popup) // sets a popup on this marker
+        .addTo(map);
+
+    // create new marker
+    const marker1 = new mapboxgl.Marker()
+        .setLngLat([-77.038659, 38.931567])
+        .setPopup1()
+        .addTo(map);
+
+
+</script>
+
 </body>
-
-
-
 </html>
