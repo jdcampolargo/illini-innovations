@@ -6,7 +6,7 @@ const map = new mapboxgl.Map({
   style: 'mapbox://styles/mapbox/streets-v12', // style URL
   // style: 'mapbox://styles/mapbox/light-v11',
 
-  center: [-88.228333, 40.110558], // starting position [lng, lat]
+  center: [-88.228340, 40.110558], // starting position [lng, lat]
   zoom: 15, // starting zoom
   pitch: 45
 });
@@ -61,11 +61,53 @@ function addMarker(lngLat, popupContent) {
 }
 
 // Define the popup content for each marker
+
+// old code
+// const popupContent = {
+//   'marker1': '<h3>Illini Innovations</h3><p>1234 Innovation Drive</p>',
+//   'marker2': '<h3>Illini Innovations</h3><p>Description of the place goes here.</p><p><a href="https://example.com">Learn more</a></p><ul><li>Similar place 1</li><li>Similar place 2</li><li>Similar place 3</li></ul><button onclick="showStreetView()">Street View</button>',
+//   'marker3': '<h3>DRES</h3><p>1234 Innovation Drive</p>',
+//   'PLATO': '<h3>PLATO</h3><p>1234 Innovation Drive</p>',
+
+// };
+
+
+// new code easier to add more info about the popup
 const popupContent = {
-  'marker1': '<h3>Illini Innovations</h3><p>1234 Innovation Drive</p>',
-  'marker2': '<h3>Illini Innovations</h3><p>Description of the place goes here.</p><p><a href="https://example.com">Learn more</a></p><ul><li>Similar place 1</li><li>Similar place 2</li><li>Similar place 3</li></ul><button onclick="showStreetView()">Street View</button>',
-  'marker3': '<h3>DRES</h3><p>1234 Innovation Drive</p>'
+  'marker1': `
+    <h3>Illini Innovations</h3>
+    <p>1234 Innovation Drive</p>
+  `,
+  'marker2': `
+    <h3>Illini Innovations</h3>
+    <p>Description of the place goes here.</p>
+    <p><a href="https://example.com">Learn more</a></p>
+    <ul>
+      <li>Similar place 1</li>
+      <li>Similar place 2</li>
+      <li>Similar place 3</li>
+    </ul>
+    <button onclick="showStreetView()">Street View</button>
+  `,
+  'marker3': `
+    <h3>DRES</h3>
+    <p>1234 Innovation Drive</p>
+  `,
+  'PLATO': `
+    <h3>PLATO</h3>
+<div class="popup-expandable">z
+    <p>PLATO (Programmed Logic for Automated Teaching Operations) was an innovative computer-based education system developed at the University of Illinois at Urbana-Champaign in the 1960s. It allowed students to interact with course materials on a computer, providing them with immediate feedback and personalized instruction. The system was ahead of its time, and its influence can still be seen today in the widespread use of educational technology in classrooms around the world.</p>
+    <p>If you're interested in learning more about the history of PLATO, you can check out the University of Illinois's online archive:</p>
+    <p><a href="https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/">https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/</a></p>
+// </div>
+    `
+
 };
+
+
+
+
+
 
 map.on('style.load', () => {
 
@@ -84,6 +126,11 @@ map.on('style.load', () => {
   addMarker([-88.22708440781152, 40.10924072528232], popupContent['marker2']);
   addMarker([-88.242912, 40.1034188], popupContent['marker3']);
   addMarker([-88.22808440781152, 40.10924072528232], popupContent['marker2']);
+  addMarker([-88.22609183428881, 40.11211559903376], popupContent['PLATO']);
+  addMarker([-88.22609183428881, 40.11211559903380], popupContent['PLATO']);
+  addMarker([-88.22609183428881, 40.11211559903237], popupContent['PLATO']);
+  addMarker([-88.22609183428881, 40.13], popupContent['PLATO']);
+  
 
 
 
@@ -130,6 +177,10 @@ map.on('style.load', () => {
     labelLayerId
   );
 
+  
 
+});
 
+map.on('click', function(e) {
+  console.log(e.lngLat); // logs the clicked coordinates to the console
 });
