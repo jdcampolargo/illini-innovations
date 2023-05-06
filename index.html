@@ -63,25 +63,35 @@ body { margin: 0; padding: 0; }
         'Construction on the Washington Monument began in 1848.'
     );
 
-    // create DOM element for the marker
+
+
+function createMarker(imageUrl, lng, lat, popupText) {
+    const popup = new mapboxgl.Popup({ offset: 25 }).setText(popupText);
+
     const el = document.createElement('div');
-    el.id = 'marker';
+    el.style.backgroundImage = `url(${imageUrl})`;
+    el.style.backgroundSize = 'cover';
+    el.style.width = '60px';
+    el.style.height = '60px';
+    el.style.borderRadius = '50%';
+    el.style.cursor = 'pointer';
 
-    const el1 = document.createElement('div');
-    el1.id = 'marker1';
-    
-
-    // create the marker
     new mapboxgl.Marker(el)
-        .setLngLat([-88.22625946048532, 40.112109560219366])
-        .setPopup(popup) // sets a popup on this marker
+        .setLngLat([lng, lat])
+        .setPopup(popup)
         .addTo(map);
+}
 
-    // create new marker
-    const marker1 = new mapboxgl.Marker()
-        .setLngLat([-88.22625946048532, 40.112109560219366])
-        .setPopup1()
-        .addTo(map);
+
+createMarker('https://upload.wikimedia.org/wikipedia/commons/0/02/PLATO_chem_exp.jpg', -88.22625946048532, 40.2, 'Construction on the Washington Monument began in 1848.');
+
+createMarker('https://it.uic.edu/wp-content/uploads/sites/360/2021/01/PLATO-news-copy.jpg', -88.22625946048532, 40.12, 'Construction on the Washington Monument began in 1848.');
+
+
+
+
+
+
 
 
  map.on('style.load', () => {
@@ -131,6 +141,8 @@ body { margin: 0; padding: 0; }
     );
 
 });
+
+
 
 
 </script>
