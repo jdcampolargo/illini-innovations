@@ -31,7 +31,7 @@ body { margin: 0; padding: 0; }
         cursor: pointer;
     } */
 
-    
+
 
 
 
@@ -44,12 +44,12 @@ body { margin: 0; padding: 0; }
 
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoiamRjYW1wb2xhcmdvIiwiYSI6ImNreHMzZXh4cTRyOGcydW80aWcyc2ZrMXMifQ.SqgAQ26kdjR4jA4EcGnWCQ';
-    const monument = [-77.0353, 38.8895];
+    const UIUC = [-88.228333, 40.110558];
     const map = new mapboxgl.Map({
         container: 'map',
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
         style: 'mapbox://styles/mapbox/light-v11',
-        center: monument,
+        center: UIUC,
         zoom: 15
     });
 
@@ -72,7 +72,7 @@ body { margin: 0; padding: 0; }
 
     // create the marker
     new mapboxgl.Marker(el)
-        .setLngLat(monument)
+        .setLngLat(UIUC)
         .setPopup(popup) // sets a popup on this marker
         .addTo(map);
 
