@@ -50,8 +50,12 @@ body { margin: 0; padding: 0; }
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
         style: 'mapbox://styles/mapbox/streets-v12',
         center: UIUC,
-        zoom: 15, // starting zoom
-        pitch: 45
+        zoom: 16, // starting zoom
+        pitch: 70, // pitch in degrees
+      //  bearing: -17.6, // bearing in degrees
+        antialias: true // smooth edges
+
+
     });
 
 
@@ -92,6 +96,11 @@ body { margin: 0; padding: 0; }
     <p>If you're interested in learning more about the history of PLATO, you can check out the University of Illinois's online archive:</p>
     <p><a href="https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/">https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/</a></p>
     `,
+    'BCL': `
+    <h2>Biological Computer Lab</h2>
+    <p>The Biological Computer Laboratory (BCL) was a research laboratory at the University of Illinois at Urbana-Champaign from 1958 to 1974. It was founded by Heinz von Foerster, a professor of electrical engineering, and was one of the first institutions to study cybernetics, the science of communication and control in animals and machines. The lab was home to many influential researchers, including Gordon Pask, Humberto Maturana, and Francisco Varela. It was also the birthplace of the field of artificial life, which studies how living organisms can be simulated on computers.</p>
+`
+
 };
 
 
@@ -114,11 +123,17 @@ function createMarker(imageUrl, lng, lat, key) {
 }
 
 
-createMarker('https://upload.wikimedia.org/wikipedia/commons/0/02/PLATO_chem_exp.jpg', -88.22625946048532, 40.2, 'PLATO');
+// PLATO
+createMarker('https://web.archive.org/web/20230430061140/https://upload.wikimedia.org/wikipedia/commons/e/ed/Platovterm1981.jpg', -88.22622861503689, 40.11211263718405, 'PLATO');
 
-createMarker('https://it.uic.edu/wp-content/uploads/sites/360/2021/01/PLATO-news-copy.jpg', -88.22625946048532, 40.12, 'Construction on the Washington Monument began in 1848.');
+// BCL
+createMarker('https://web.archive.org/web/20230506232336/https://spinelessbooks.com/wholeuniversity/cover.jpg', -88.22725755546287, 40.11145222627547, 'BCL');
 
+// Alumni Paul Schoeder
 
+// Mosaic
+
+// 
 
 
 
