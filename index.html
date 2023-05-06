@@ -54,6 +54,8 @@ body { margin: 0; padding: 0; }
         pitch: 45
     });
 
+
+    
     // create the popup
     const popup = new mapboxgl.Popup({ offset: 25 }).setText(
         'Construction on the Washington Monument began in 1848.'
@@ -64,9 +66,38 @@ body { margin: 0; padding: 0; }
     );
 
 
+    const popupContent = {
+  'marker1': `
+    <h3>Illini Innovations</h3>
+    <p>1234 Innovation Drive</p>
+  `,
+  'marker2': `
+    <h3>Illini Innovations</h3>
+    <p>Description of the place goes here.</p>
+    <p><a href="https://example.com">Learn more</a></p>
+    <ul>
+      <li>Similar place 1</li>
+      <li>Similar place 2</li>
+      <li>Similar place 3</li>
+    </ul>
+    <button onclick="showStreetView()">Street View</button>
+  `,
+  'marker3': `
+    <h3>DRES</h3>
+    <p>1234 Innovation Drive</p>
+  `,
+  'PLATO': `
+    <h2>PLATO</h2>
+    <p>PLATO (Programmed Logic for Automated Teaching Operations) was an innovative computer-based education system developed at the University of Illinois at Urbana-Champaign in the 1960s. It allowed students to interact with course materials on a computer, providing them with immediate feedback and personalized instruction. The system was ahead of its time, and its influence can still be seen today in the widespread use of educational technology in classrooms around the world.</p>    
+    <p>If you're interested in learning more about the history of PLATO, you can check out the University of Illinois's online archive:</p>
+    <p><a href="https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/">https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/</a></p>
+    `,
+};
 
-function createMarker(imageUrl, lng, lat, popupText) {
-    const popup = new mapboxgl.Popup({ offset: 25 }).setText(popupText);
+
+    // function to create a marker with an IMAGE URL
+function createMarker(imageUrl, lng, lat, key) {
+    const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent[key]);
 
     const el = document.createElement('div');
     el.style.backgroundImage = `url(${imageUrl})`;
@@ -83,7 +114,7 @@ function createMarker(imageUrl, lng, lat, popupText) {
 }
 
 
-createMarker('https://upload.wikimedia.org/wikipedia/commons/0/02/PLATO_chem_exp.jpg', -88.22625946048532, 40.2, 'Construction on the Washington Monument began in 1848.');
+createMarker('https://upload.wikimedia.org/wikipedia/commons/0/02/PLATO_chem_exp.jpg', -88.22625946048532, 40.2, 'PLATO');
 
 createMarker('https://it.uic.edu/wp-content/uploads/sites/360/2021/01/PLATO-news-copy.jpg', -88.22625946048532, 40.12, 'Construction on the Washington Monument began in 1848.');
 
