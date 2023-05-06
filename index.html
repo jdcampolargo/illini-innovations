@@ -48,9 +48,10 @@ body { margin: 0; padding: 0; }
     const map = new mapboxgl.Map({
         container: 'map',
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'mapbox://styles/mapbox/light-v11',
+        style: 'mapbox://styles/mapbox/streets-v12',
         center: UIUC,
-        zoom: 15
+        zoom: 15, // starting zoom
+        pitch: 45
     });
 
     // create the popup
@@ -72,15 +73,64 @@ body { margin: 0; padding: 0; }
 
     // create the marker
     new mapboxgl.Marker(el)
-        .setLngLat(UIUC)
+        .setLngLat([-88.22625946048532, 40.112109560219366])
         .setPopup(popup) // sets a popup on this marker
         .addTo(map);
 
     // create new marker
     const marker1 = new mapboxgl.Marker()
-        .setLngLat([-77.038659, 38.931567])
+        .setLngLat([-88.22625946048532, 40.112109560219366])
         .setPopup1()
         .addTo(map);
+
+
+ map.on('style.load', () => {
+
+    const layers = map.getStyle().layers;
+  const labelLayerId = layers.find(
+    (layer) => layer.type === 'symbol' && layer.layout['text-field']
+  ).id;
+
+  // 3D Feature
+    map.addLayer(
+        {
+            'id': 'add-3d-buildings',
+            'source': 'composite',
+            'source-layer': 'building',
+            'filter': ['==', 'extrude', 'true'],
+            'type': 'fill-extrusion',
+            'minzoom': 15,
+            'paint': {
+                'fill-extrusion-color': '#aaa',
+
+                // Use an 'interpolate' expression to
+                // add a smooth transition effect to
+                // the buildings as the user zooms in.
+                'fill-extrusion-height': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    15,
+                    0,
+                    15.05,
+                    ['get', 'height']
+                ],
+                'fill-extrusion-base': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    15,
+                    0,
+                    15.05,
+                    ['get', 'min_height']
+                ],
+                'fill-extrusion-opacity': 0.6
+            }
+        },
+        labelLayerId
+    );
+
+});
 
 
 </script>
