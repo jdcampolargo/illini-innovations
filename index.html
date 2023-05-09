@@ -177,71 +177,146 @@ button:hover {
 
 
     });
+    
+// Set the coordinates and video IDs for the markers
+const markerData = [
+  {
+    coordinates: [-88.2271436841917, 40.108160345635575],
+    videoId: 'cShewypo7PY'
+  },
+  {
+    coordinates: [-88.23029561086127, 40.102495452798694],
+    videoId: 'gW7V5oJt6eM'
+  }
+];
 
+// Loop through the marker data and create a marker for each one
+markerData.forEach(marker => {
+  // Get the YouTube video ID from the marker data
+  const videoId = marker.videoId;
 
-      // Set the coordinates for the marker
-const coordinates = [-88.2271436841917, 40.108160345635575];
+  // Set the URL for the YouTube Data API
+  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=YOUR_API_KEY&part=snippet`;
 
-// Get the YouTube video ID from the URL
-const videoId = 'cShewypo7PY';
+  // Create a custom popup with the YouTube preview
+  const popupHtml = `
+    <div class="youtube-preview">
+      <h2>Stephen Wolfram</h2>
+      <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+        <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video Thumbnail">
+        <div class="video-title"></div>
+      </a>
+    </div>
+  `;
 
-// Set the URL for the YouTube Data API
-const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=AIzaSyD0sdltLLBQ56dN8fVQpKGmyObdfKUf3kc&part=snippet`;
+  const popup = new mapboxgl.Popup({
+    closeButton: true,
+    closeOnClick: true
+  }).setHTML(popupHtml);
 
-// Create a custom popup with the YouTube preview
-const popupHtml = `
-<div class="youtube-preview">
-  <h2>Stephen Wolfram</h2>
-    <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
-      <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video Thumbnail">
-      <div class="video-title"></div>
-  
-    </a>
-  </div>
-`;
+  // Create the marker and set its coordinates
+  const markerObject = new mapboxgl.Marker()
+    .setLngLat(marker.coordinates)
+    .addTo(map)
+    .setPopup(popup);
 
+  // Get the video title from the YouTube Data API and set it in the popup
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const videoTitle = data.items[0].snippet.title;
+      const videoTitleElement = popup.getElement().querySelector('.video-title');
+      videoTitleElement.textContent = videoTitle;
+    });
 
-
-
-
-const popup = new mapboxgl.Popup({
-  closeButton: true,
-  closeOnClick: true
-}).setHTML(popupHtml);
-
-// Add the marker to the map and bind the popup to it
-const marker = new mapboxgl.Marker()
-  .setLngLat(coordinates)
-  .addTo(map)
-  .setPopup(popup);
-
-// Get the video title from the YouTube Data API and set it in the popup
-fetch(apiUrl)
-  .then(response => response.json())
-  .then(data => {
-    const videoTitle = data.items[0].snippet.title;
-    const videoTitleElement = popup.getElement().querySelector('.video-title');
-    videoTitleElement.textContent = videoTitle;
+  // Add an event listener to the marker to show the popup on click
+  markerObject.getElement().addEventListener('click', () => {
+    popup.addTo(map);
   });
-
-// Add an event listener to the marker to show the popup on click
-marker.getElement().addEventListener('click', () => {
-  popup.addTo(map);
+  
 });
 
+function createMarker(videoId, lng, lat, name) {
+  const videoThumbnailUrl = `https://img.youtube.com/vi/${videoId}/0.jpg`;
+  const popup = new mapboxgl.Popup({ offset: 25 }).setText(name);
+
+  const el = document.createElement('div');
+  el.style.backgroundImage = `url(${videoThumbnailUrl})`;
+  el.style.backgroundSize = 'cover';
+  el.style.width = '50px';
+  el.style.height = '50px';
+  el.style.borderRadius = '50%';
+  el.style.cursor = 'pointer';
+
+  new mapboxgl.Marker(el)
+    .setLngLat([lng, lat])
+    .setPopup(popup)
+    .addTo(map);
+}
+
+// Example usage
+createMarker('cShewypo7PY', -88.22622861503689, 40.11211263718405, 'Rick Astley - Never Gonna Give You Up');
 
 
 
 
-    
-//     // create the popup
-//     const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-//         'Construction on the Washington Monument began in 1848.'
-//     );
+//       // Set the coordinates for the marker
+// const coordinates = [-88.2271436841917, 40.108160345635575];
 
-//     const popup1 = new mapboxgl.Popup({ offset: 25 }).setText(
-//         'Construction on the Washington Monument began in 1848.'
-//     );
+// // Get the YouTube video ID from the URL
+// const videoId = 'cShewypo7PY';
+
+// // Set the URL for the YouTube Data API
+// const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=AIzaSyD0sdltLLBQ56dN8fVQpKGmyObdfKUf3kc&part=snippet`;
+
+// // Create a custom popup with the YouTube preview
+// const popupHtml = `
+// <div class="youtube-preview">
+//   <h2>Stephen Wolfram</h2>
+//     <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+//       <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video Thumbnail">
+//       <div class="video-title"></div>
+  
+//     </a>
+//   </div>
+// `;
+
+
+
+
+
+
+
+// const popup = new mapboxgl.Popup({
+//   closeButton: true,
+//   closeOnClick: true
+// }).setHTML(popupHtml);
+
+// // Add the marker to the map and bind the popup to it
+// const marker = new mapboxgl.Marker()
+//   .setLngLat(coordinates)
+//   .addTo(map)
+//   .setPopup(popup);
+
+// // Get the video title from the YouTube Data API and set it in the popup
+// fetch(apiUrl)
+//   .then(response => response.json())
+//   .then(data => {
+//     const videoTitle = data.items[0].snippet.title;
+//     const videoTitleElement = popup.getElement().querySelector('.video-title');
+//     videoTitleElement.textContent = videoTitle;
+//   });
+
+// // Add an event listener to the marker to show the popup on click
+// marker.getElement().addEventListener('click', () => {
+//   popup.addTo(map);
+// });
+
+
+
+
+
+  
 
 
 //     const popupContent = {
