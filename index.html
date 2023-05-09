@@ -159,168 +159,210 @@ button:hover {
     });
 
 
+      // Set the coordinates for the marker
+const coordinates = [-88.2271436841917, 40.108160345635575];
+
+// Get the YouTube video ID from the URL
+const videoId = 'cShewypo7PY';
+
+// Set the URL for the YouTube Data API
+const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=AIzaSyD0sdltLLBQ56dN8fVQpKGmyObdfKUf3kc&part=snippet`;
+
+// Create a custom popup with the YouTube preview
+const popupHtml = `
+  <div class="youtube-preview">
+    <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video Thumbnail">
+    <div class="video-title"></div>
+  </div>
+`;
+
+const popup = new mapboxgl.Popup({
+  closeButton: true,
+  closeOnClick: true
+}).setHTML(popupHtml);
+
+// Add the marker to the map and bind the popup to it
+const marker = new mapboxgl.Marker()
+  .setLngLat(coordinates)
+  .addTo(map)
+  .setPopup(popup);
+
+// Get the video title from the YouTube Data API and set it in the popup
+fetch(apiUrl)
+  .then(response => response.json())
+  .then(data => {
+    const videoTitle = data.items[0].snippet.title;
+    const videoTitleElement = popup.getElement().querySelector('.video-title');
+    videoTitleElement.textContent = videoTitle;
+  });
+
+// Add an event listener to the marker to show the popup on click
+marker.getElement().addEventListener('click', () => {
+  popup.addTo(map);
+});
+
     
-    // create the popup
-    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-        'Construction on the Washington Monument began in 1848.'
-    );
+//     // create the popup
+//     const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+//         'Construction on the Washington Monument began in 1848.'
+//     );
 
-    const popup1 = new mapboxgl.Popup({ offset: 25 }).setText(
-        'Construction on the Washington Monument began in 1848.'
-    );
+//     const popup1 = new mapboxgl.Popup({ offset: 25 }).setText(
+//         'Construction on the Washington Monument began in 1848.'
+//     );
 
 
-    const popupContent = {
-  'marker1': `
-    <h3>Illini Innovations</h3>
-    <p>1234 Innovation Drive</p>
-  `,
-  'marker2': `
-    <h3>Illini Innovations</h3>
-    <p>Description of the place goes here.</p>
-    <p><a href="https://example.com">Learn more</a></p>
-    <ul>
-      <li>Similar place 1</li>
-      <li>Similar place 2</li>
-      <li>Similar place 3</li>
-    </ul>
-    <button onclick="showStreetView()">Street View</button>
-  `,
-  'marker3': `
-    <h3>DRES</h3>
-    <p>1234 Innovation Drive</p>
-  `,
-  'PLATO': `
-    <h2>PLATO</h2>
-    <p>PLATO (Programmed Logic for Automated Teaching Operations) was an innovative computer-based education system developed at the University of Illinois at Urbana-Champaign in the 1960s. It allowed students to interact with course materials on a computer, providing them with immediate feedback and personalized instruction. The system was ahead of its time, and its influence can still be seen today in the widespread use of educational technology in classrooms around the world.</p>    
-    <p>If you're interested in learning more about the history of PLATO, you can check out the University of Illinois's online archive:</p>
-    <p><a href="https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/">https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/</a></p>
-    `,
-    'BCL': `
-    <h2>Biological Computer Lab</h2>
-    <p>The Biological Computer Laboratory (BCL) was a research laboratory at the University of Illinois at Urbana-Champaign from 1958 to 1974. It was founded by Heinz von Foerster, a professor of electrical engineering, and was one of the first institutions to study cybernetics, the science of communication and control in animals and machines. The lab was home to many influential researchers, including Gordon Pask, Humberto Maturana, and Francisco Varela. 
-        It was also the birthplace of the field of artificial life, which studies how living organisms can be simulated on computers.</p>
-`,
-    'PROTOTYPE': `
-    <h2>PROTOTYPE</h2>
-    <p>This is a short bio where I would include I personally like. What I find cool and interesting. Not too long, beautiful language, and to the point.</p>
-    <div class="carousel">
-        <img src="https://farm5.static.flickr.com/4062/4675632404_865253d332.jpg" alt="image 2">
-    </div>
+//     const popupContent = {
+//   'marker1': `
+//     <h3>Illini Innovations</h3>
+//     <p>1234 Innovation Drive</p>
+//   `,
+//   'marker2': `
+//     <h3>Illini Innovations</h3>
+//     <p>Description of the place goes here.</p>
+//     <p><a href="https://example.com">Learn more</a></p>
+//     <ul>
+//       <li>Similar place 1</li>
+//       <li>Similar place 2</li>
+//       <li>Similar place 3</li>
+//     </ul>
+//     <button onclick="showStreetView()">Street View</button>
+//   `,
+//   'marker3': `
+//     <h3>DRES</h3>
+//     <p>1234 Innovation Drive</p>
+//   `,
+//   'PLATO': `
+//     <h2>PLATO</h2>
+//     <p>PLATO (Programmed Logic for Automated Teaching Operations) was an innovative computer-based education system developed at the University of Illinois at Urbana-Champaign in the 1960s. It allowed students to interact with course materials on a computer, providing them with immediate feedback and personalized instruction. The system was ahead of its time, and its influence can still be seen today in the widespread use of educational technology in classrooms around the world.</p>    
+//     <p>If you're interested in learning more about the history of PLATO, you can check out the University of Illinois's online archive:</p>
+//     <p><a href="https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/">https://archives.library.illinois.edu/blog/university-archives/the-history-of-plato-the-worlds-first-computer-based-education-system/</a></p>
+//     `,
+//     'BCL': `
+//     <h2>Biological Computer Lab</h2>
+//     <p>The Biological Computer Laboratory (BCL) was a research laboratory at the University of Illinois at Urbana-Champaign from 1958 to 1974. It was founded by Heinz von Foerster, a professor of electrical engineering, and was one of the first institutions to study cybernetics, the science of communication and control in animals and machines. The lab was home to many influential researchers, including Gordon Pask, Humberto Maturana, and Francisco Varela. 
+//         It was also the birthplace of the field of artificial life, which studies how living organisms can be simulated on computers.</p>
+// `,
+//     'PROTOTYPE': `
+//     <h2>PROTOTYPE</h2>
+//     <p>This is a short bio where I would include I personally like. What I find cool and interesting. Not too long, beautiful language, and to the point.</p>
+//     <div class="carousel">
+//         <img src="https://farm5.static.flickr.com/4062/4675632404_865253d332.jpg" alt="image 2">
+//     </div>
  
-    <br />
-    <div class="button-container">
-  <button class="button street-view" onclick="window.open('https://example.com/', '_blank', 'noopener,noreferrer')">Street View</button>
-  <button class="button learn-more">Learn More</button>
-</div>
+//     <br />
+//     <div class="button-container">
+//   <button class="button street-view" onclick="window.open('https://example.com/', '_blank', 'noopener,noreferrer')">Street View</button>
+//   <button class="button learn-more">Learn More</button>
+// </div>
 
   
-    `,
+//     `,
 
 
-// []Title
-// [] Quick summary
-    // [] Learn more (link)
-// [] Link Photos --> 3 Photos
-// Future --> Connections to Present Researchers
-// [] Street View
-// Learn more
-
-
-
-
-
-
-};
-
-
-    // function to create a marker with an IMAGE URL
-function createMarker(imageUrl, lng, lat, key) {
-    const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent[key]);
-
-    const el = document.createElement('div');
-    el.style.backgroundImage = `url(${imageUrl})`;
-    el.style.backgroundSize = 'cover';
-    el.style.width = '60px';
-    el.style.height = '60px';
-    el.style.borderRadius = '50%';
-    el.style.cursor = 'pointer';
-
-
-    new mapboxgl.Marker(el)
-        .setLngLat([lng, lat])
-        .setPopup(popup)
-        .addTo(map);
-}
-
-
-// PLATO
-createMarker('https://web.archive.org/web/20230430061140/https://upload.wikimedia.org/wikipedia/commons/e/ed/Platovterm1981.jpg', -88.22622861503689, 40.11211263718405, 'PLATO');
-
-// BCL
-createMarker('https://web.archive.org/web/20230506232336/https://spinelessbooks.com/wholeuniversity/cover.jpg', -88.22725755546287, 40.11145222627547, 'BCL');
-
-// PROTOTYPE
-
-createMarker('https://www.juandavidcampolargo.com/images/starthere-photo.png', -88.2271436841917, 40.108160345635575, 'PROTOTYPE');
-
-// Alumni Paul Schoeder
-
-// Mosaic
+// // []Title
+// // [] Quick summary
+//     // [] Learn more (link)
+// // [] Link Photos --> 3 Photos
+// // Future --> Connections to Present Researchers
+// // [] Street View
+// // Learn more
 
 
 
 
 
 
+// };
 
- map.on('style.load', () => {
 
-    const layers = map.getStyle().layers;
-  const labelLayerId = layers.find(
-    (layer) => layer.type === 'symbol' && layer.layout['text-field']
-  ).id;
+//     // function to create a marker with an IMAGE URL
+// function createMarker(imageUrl, lng, lat, key) {
+//     const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent[key]);
 
-  // 3D Feature
-    map.addLayer(
-        {
-            'id': 'add-3d-buildings',
-            'source': 'composite',
-            'source-layer': 'building',
-            'filter': ['==', 'extrude', 'true'],
-            'type': 'fill-extrusion',
-            'minzoom': 15,
-            'paint': {
-                'fill-extrusion-color': '#aaa',
+//     const el = document.createElement('div');
+//     el.style.backgroundImage = `url(${imageUrl})`;
+//     el.style.backgroundSize = 'cover';
+//     el.style.width = '60px';
+//     el.style.height = '60px';
+//     el.style.borderRadius = '50%';
+//     el.style.cursor = 'pointer';
 
-                // Use an 'interpolate' expression to
-                // add a smooth transition effect to
-                // the buildings as the user zooms in.
-                'fill-extrusion-height': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    15,
-                    0,
-                    15.05,
-                    ['get', 'height']
-                ],
-                'fill-extrusion-base': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    15,
-                    0,
-                    15.05,
-                    ['get', 'min_height']
-                ],
-                'fill-extrusion-opacity': 0.6
-            }
-        },
-        labelLayerId
-    );
 
-});
+//     new mapboxgl.Marker(el)
+//         .setLngLat([lng, lat])
+//         .setPopup(popup)
+//         .addTo(map);
+// }
+
+
+// // PLATO
+// createMarker('https://web.archive.org/web/20230430061140/https://upload.wikimedia.org/wikipedia/commons/e/ed/Platovterm1981.jpg', -88.22622861503689, 40.11211263718405, 'PLATO');
+
+// // BCL
+// createMarker('https://web.archive.org/web/20230506232336/https://spinelessbooks.com/wholeuniversity/cover.jpg', -88.22725755546287, 40.11145222627547, 'BCL');
+
+// // PROTOTYPE
+
+// createMarker('https://www.juandavidcampolargo.com/images/starthere-photo.png', -88.2271436841917, 40.108160345635575, 'PROTOTYPE');
+
+// // Alumni Paul Schoeder
+
+// // Mosaic
+
+
+
+
+
+
+
+//  map.on('style.load', () => {
+
+//     const layers = map.getStyle().layers;
+//   const labelLayerId = layers.find(
+//     (layer) => layer.type === 'symbol' && layer.layout['text-field']
+//   ).id;
+
+//   // 3D Feature
+//     map.addLayer(
+//         {
+//             'id': 'add-3d-buildings',
+//             'source': 'composite',
+//             'source-layer': 'building',
+//             'filter': ['==', 'extrude', 'true'],
+//             'type': 'fill-extrusion',
+//             'minzoom': 15,
+//             'paint': {
+//                 'fill-extrusion-color': '#aaa',
+
+//                 // Use an 'interpolate' expression to
+//                 // add a smooth transition effect to
+//                 // the buildings as the user zooms in.
+//                 'fill-extrusion-height': [
+//                     'interpolate',
+//                     ['linear'],
+//                     ['zoom'],
+//                     15,
+//                     0,
+//                     15.05,
+//                     ['get', 'height']
+//                 ],
+//                 'fill-extrusion-base': [
+//                     'interpolate',
+//                     ['linear'],
+//                     ['zoom'],
+//                     15,
+//                     0,
+//                     15.05,
+//                     ['get', 'min_height']
+//                 ],
+//                 'fill-extrusion-opacity': 0.6
+//             }
+//         },
+//         labelLayerId
+//     );
+
+// });
 
 
 
