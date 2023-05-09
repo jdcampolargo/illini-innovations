@@ -42,7 +42,7 @@ body { margin: 0; padding: 0; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-} 
+}
 
 
 .carousel img {
@@ -58,6 +58,82 @@ body { margin: 0; padding: 0; }
     .mapboxgl-popup {
   max-width: 200px;
     }
+
+    /* button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #2f80ed;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #fffb00;
+} */
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #3e8e41;
+}
+
+.street-view {
+  background-color: #ff8c00;
+}
+
+.learn-more {
+  background-color: #008CBA;
+}
+
+.more-options {
+  background-color: #f44336;
+}
+
+.more-options:hover {
+  background-color: #d32f2f;
+}
+
+.more-options:after {
+  content: "\25BC";
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.more-options:hover:after {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .button-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
 
 
 </style>
@@ -127,19 +203,27 @@ body { margin: 0; padding: 0; }
 `,
     'PROTOTYPE': `
     <h2>PROTOTYPE</h2>
-    <p>This is a short bio where I would include I personally like. What I find cool and interesting. Not too long, beautiful language, and to the point. <a href="https://example.com" target="_blank">Learn more</a>.</p>
+    <p>This is a short bio where I would include I personally like. What I find cool and interesting. Not too long, beautiful language, and to the point.</p>
     <div class="carousel">
-  <img src="https://farm5.static.flickr.com/4062/4675632404_865253d332.jpg" alt="image 2">
+        <img src="https://farm5.static.flickr.com/4062/4675632404_865253d332.jpg" alt="image 2">
+    </div>
+ 
+    <br />
+    <div class="button-container">
+  <button class="button street-view" onclick="window.open('https://example.com/', '_blank', 'noopener,noreferrer')">Street View</button>
+  <button class="button learn-more">Learn More</button>
 </div>
 
-        `
+  
+    `,
+
 
 // []Title
 // [] Quick summary
     // [] Learn more (link)
-// Link Photos --> 3 Photos
+// [] Link Photos --> 3 Photos
 // Future --> Connections to Present Researchers
-// Street View
+// [] Street View
 // Learn more
 
 
