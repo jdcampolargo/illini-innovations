@@ -132,6 +132,26 @@ button:hover {
     flex-direction: column;
     gap: 5px;
   }
+
+  .youtube-preview {
+  max-width: 300px;
+  text-align: center;
+}
+
+.youtube-preview h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.youtube-preview img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
 }
 
 
@@ -170,11 +190,19 @@ const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=A
 
 // Create a custom popup with the YouTube preview
 const popupHtml = `
-  <div class="youtube-preview">
-    <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video Thumbnail">
-    <div class="video-title"></div>
+<div class="youtube-preview">
+  <h2>Stephen Wolfram</h2>
+    <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+      <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="Video Thumbnail">
+      <div class="video-title"></div>
+  
+    </a>
   </div>
 `;
+
+
+
+
 
 const popup = new mapboxgl.Popup({
   closeButton: true,
@@ -200,6 +228,10 @@ fetch(apiUrl)
 marker.getElement().addEventListener('click', () => {
   popup.addTo(map);
 });
+
+
+
+
 
     
 //     // create the popup
