@@ -4,8 +4,12 @@
 <meta charset="utf-8">
 <title>MAPMAP</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<!-- Mapbox -->
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+
+
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
@@ -32,15 +36,35 @@ body { margin: 0; padding: 0; }
     } */
 
 
+.carousel {
+  /* width: 50%; */
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+} 
 
 
+.carousel img {
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+  border-radius: 20%;
+
+
+
+}
 
     .mapboxgl-popup {
-        max-width: 200px;
+  max-width: 200px;
     }
+
+
 </style>
 
 <div id="map"></div>
+
+
 
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoiamRjYW1wb2xhcmdvIiwiYSI6ImNreHMzZXh4cTRyOGcydW80aWcyc2ZrMXMifQ.SqgAQ26kdjR4jA4EcGnWCQ';
@@ -98,8 +122,30 @@ body { margin: 0; padding: 0; }
     `,
     'BCL': `
     <h2>Biological Computer Lab</h2>
-    <p>The Biological Computer Laboratory (BCL) was a research laboratory at the University of Illinois at Urbana-Champaign from 1958 to 1974. It was founded by Heinz von Foerster, a professor of electrical engineering, and was one of the first institutions to study cybernetics, the science of communication and control in animals and machines. The lab was home to many influential researchers, including Gordon Pask, Humberto Maturana, and Francisco Varela. It was also the birthplace of the field of artificial life, which studies how living organisms can be simulated on computers.</p>
-`
+    <p>The Biological Computer Laboratory (BCL) was a research laboratory at the University of Illinois at Urbana-Champaign from 1958 to 1974. It was founded by Heinz von Foerster, a professor of electrical engineering, and was one of the first institutions to study cybernetics, the science of communication and control in animals and machines. The lab was home to many influential researchers, including Gordon Pask, Humberto Maturana, and Francisco Varela. 
+        It was also the birthplace of the field of artificial life, which studies how living organisms can be simulated on computers.</p>
+`,
+    'PROTOTYPE': `
+    <h2>PROTOTYPE</h2>
+    <p>This is a short bio where I would include I personally like. What I find cool and interesting. Not too long, beautiful language, and to the point. <a href="https://example.com" target="_blank">Learn more</a>.</p>
+    <div class="carousel">
+  <img src="https://farm5.static.flickr.com/4062/4675632404_865253d332.jpg" alt="image 2">
+</div>
+
+        `
+
+// []Title
+// [] Quick summary
+    // [] Learn more (link)
+// Link Photos --> 3 Photos
+// Future --> Connections to Present Researchers
+// Street View
+// Learn more
+
+
+
+
+
 
 };
 
@@ -116,6 +162,7 @@ function createMarker(imageUrl, lng, lat, key) {
     el.style.borderRadius = '50%';
     el.style.cursor = 'pointer';
 
+
     new mapboxgl.Marker(el)
         .setLngLat([lng, lat])
         .setPopup(popup)
@@ -129,104 +176,15 @@ createMarker('https://web.archive.org/web/20230430061140/https://upload.wikimedi
 // BCL
 createMarker('https://web.archive.org/web/20230506232336/https://spinelessbooks.com/wholeuniversity/cover.jpg', -88.22725755546287, 40.11145222627547, 'BCL');
 
+// PROTOTYPE
+
+createMarker('https://www.juandavidcampolargo.com/images/starthere-photo.png', -88.2271436841917, 40.108160345635575, 'PROTOTYPE');
+
 // Alumni Paul Schoeder
 
 // Mosaic
 
 
-
-
-var data = [
-            [-88.2265, 40.1025],
-            [-88.2270, 40.1025],
-            [-88.2275, 40.1025],
-            [-88.2265, 40.1030],
-            [-88.2270, 40.1030],
-            [-88.2275, 40.1030],
-            [-88.2265, 40.1035],
-            [-88.2270, 40.1035],
-            [-88.2275, 40.1035]
-        ];
-
-        map.on('load', function() {
-            // Create a heatmap layer
-            map.addLayer({
-                'id': 'heatmap',
-                'type': 'heatmap',
-                'source': {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'FeatureCollection',
-                        'features': [
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[0]
-                                }
-                            },
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[1]
-                                }
-                            },
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[2]
-                                }
-                            },
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[3]
-                                }
-                            },
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[4]
-                                }
-                            },
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[5]
-                                }
-                            },
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[6]
-                                }
-                            },
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[7]
-                                }
-                            },
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': data[8]
-                                }
-                            }
-                        ]
-                    }
-                },
-            
-            });
-        });
 
 
 
